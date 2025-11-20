@@ -2,14 +2,15 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>心动告白</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心动告白界面💖</title>
     <style>
-        /* 保持原有样式 */
         body {
             margin: 0;
             padding: 20px;
             background-color: #fef7fb;
             font-family: "微软雅黑", sans-serif;
+            text-align: center;
         }
         .character {
             width: 120px;
@@ -19,7 +20,6 @@
             display: block;
         }
         .question {
-            text-align: center;
             font-size: 20px;
             margin-bottom: 30px;
         }
@@ -36,6 +36,10 @@
             border: none;
             color: white;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05);
         }
         .yes {
             background-color: #ff4d4f;
@@ -50,7 +54,6 @@
             display: block;
         }
         .tip {
-            text-align: center;
             color: red;
             font-weight: bold;
             margin-bottom: 10px;
@@ -60,7 +63,6 @@
 <body>
     <div class="tip">点击按钮播放音乐</div>
 
-    <!-- 图片路径：确保heart.jpg在仓库根目录 -->
     < img src="heart.jpg" class="character" alt="心动告白">
 
     <div class="question">我喜欢你很久了，可以成为我的恋人吗？</div>
@@ -70,62 +72,61 @@
         <button id="noBtn" class="no">不行</button>
     </div>
 
-    <!-- 播放按钮 -->
     <button id="playBtn" class="play-btn">🔊 播放《爱错》音乐</button>
 
-    <!-- 音频标签：替换为你的Raw链接 -->
     <audio id="loveMusic" loop>
         <source src="https://github.com/yh-yh-yh/yu-/raw/refs/heads/main/%E7%88%B1%E9%94%99.mp3" type="audio/mpeg">
         您的浏览器不支持音频播放
     </audio>
 
     <script>
-        const playBtn = document.getElementById('playBtn');
-        const loveMusic = document.getElementById('loveMusic');
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        let noClickCount = 0;
+        // 确保DOM加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const playBtn = document.getElementById('playBtn');
+            const loveMusic = document.getElementById('loveMusic');
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            let noClickCount = 0;
 
-        // 点击播放音乐
-        playBtn.addEventListener('click', () => {
-            loveMusic.play().then(() => {
-                console.log('音乐开始播放');
-            }).catch(err => {
-                alert('音乐加载失败，请检查链接是否正确');
+            playBtn.addEventListener('click', () => {
+                loveMusic.play().then(() => {
+                    console.log('音乐开始播放');
+                }).catch(err => {
+                    alert('音乐加载失败，请检查链接是否正确');
+                });
             });
-        });
 
-        // 原有按钮逻辑
-        yesBtn.addEventListener('click', () => {
-            alert('💖 太好了！我们以后就是恋人啦～');
-        });
+            yesBtn.addEventListener('click', () => {
+                alert('💖 太好了！我们以后就是恋人啦～');
+            });
 
-        noBtn.addEventListener('click', () => {
-            noClickCount++;
-            const scale = 1 - (noClickCount * 0.05);
-            noBtn.style.transform = `scale(${scale})`;
+            noBtn.addEventListener('click', () => {
+                noClickCount++;
+                const scale = 1 - (noClickCount * 0.05);
+                noBtn.style.transform = `scale(${scale})`;
 
-            let alertMsg = '';
-            switch (noClickCount) {
-                case 1:
-                    alertMsg = '🥺 我会一直等你，再考虑考虑呀～';
-                    break;
-                case 2:
-                    alertMsg = '😢 别这样嘛，再给我一次机会好不好？';
-                    break;
-                case 3:
-                    alertMsg = '😣 我真的很喜欢你，再想想吧~';
-                    break;
-                case 4:
-                    alertMsg = '😞 好吧，如果你有一点点心动，就告诉我~';
-                    break;
-                case 5:
-                    noBtn.style.pointerEvents = 'none';
-                    noBtn.style.opacity = '0.5';
-                    alertMsg = '😔 好吧，如果你改变主意了，随时可以回来找我~';
-                    break;
-            }
-            alert(alertMsg);
+                let alertMsg = '';
+                switch (noClickCount) {
+                    case 1:
+                        alertMsg = '🥺 我会一直等你，再考虑考虑呀～';
+                        break;
+                    case 2:
+                        alertMsg = '😢 别这样嘛，再给我一次机会好不好？';
+                        break;
+                    case 3:
+                        alertMsg = '😣 我真的很喜欢你，再想想吧~';
+                        break;
+                    case 4:
+                        alertMsg = '😞 好吧，如果你有一点点心动，就告诉我~';
+                        break;
+                    case 5:
+                        noBtn.style.pointerEvents = 'none';
+                        noBtn.style.opacity = '0.5';
+                        alertMsg = '😔 好吧，如果你改变主意了，随时可以回来找我~';
+                        break;
+                }
+                alert(alertMsg);
+            });
         });
     </script>
 </body>
