@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>心动告白界面💖</title>
+    <title>心动告白</title>
     <style>
+        /* 保持原有样式 */
         body {
             margin: 0;
             padding: 20px;
@@ -43,6 +43,12 @@
         .no {
             background-color: #69b1ff;
         }
+        .play-btn {
+            background-color: #ff3333;
+            color: white;
+            margin: 20px auto;
+            display: block;
+        }
         .tip {
             text-align: center;
             color: red;
@@ -52,9 +58,9 @@
     </style>
 </head>
 <body>
-    <div class="tip" id="playStatus">🎶 正在自动播放《爱错》音乐💖</div>
+    <div class="tip">点击按钮播放音乐</div>
 
-    <!-- 相对路径：直接写文件名 -->
+    <!-- 图片路径：确保heart.jpg在仓库根目录 -->
     < img src="heart.jpg" class="character" alt="心动告白">
 
     <div class="question">我喜欢你很久了，可以成为我的恋人吗？</div>
@@ -64,11 +70,12 @@
         <button id="noBtn" class="no">不行</button>
     </div>
 
-    <button id="playBtn" class="play-btn" style="background-color: #ff3333; color: white; margin: 20px auto; display: block;">🔊 重新播放《爱错》音乐</button>
+    <!-- 播放按钮 -->
+    <button id="playBtn" class="play-btn">🔊 播放《爱错》音乐</button>
 
-    <!-- 相对路径：直接写文件名 -->
-    <audio id="loveMusic" loop autoplay>
-        <source src="https://github.com/yh-yh-yh/yu-/raw/refs/heads/main/%E7%88%B1%E9%94%99.mp3" type="音频/MPEG">
+    <!-- 音频标签：替换为你的Raw链接 -->
+    <audio id="loveMusic" loop>
+        <source src="https://github.com/yh-yh-yh/yu-/raw/refs/heads/main/%E7%88%B1%E9%94%99.mp3" type="audio/mpeg">
         您的浏览器不支持音频播放
     </audio>
 
@@ -79,20 +86,16 @@
         const noBtn = document.getElementById('noBtn');
         let noClickCount = 0;
 
-        window.addEventListener('load', () => {
-            loveMusic.play().catch(err => {
-                document.getElementById('playStatus').textContent = '⚠️ 自动播放被拦截，点击下方按钮手动播放';
-            });
-        });
-
+        // 点击播放音乐
         playBtn.addEventListener('click', () => {
             loveMusic.play().then(() => {
-                document.getElementById('playStatus').textContent = '🎶 正在播放《爱错》音乐';
+                console.log('音乐开始播放');
             }).catch(err => {
-                alert('音乐加载失败！请确认文件已上传到仓库根目录');
+                alert('音乐加载失败，请检查链接是否正确');
             });
         });
 
+        // 原有按钮逻辑
         yesBtn.addEventListener('click', () => {
             alert('💖 太好了！我们以后就是恋人啦～');
         });
@@ -126,6 +129,4 @@
         });
     </script>
 </body>
-
 </html>
-
