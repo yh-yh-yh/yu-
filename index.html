@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心动告白界面💖</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #fef7fb;
+            font-family: "微软雅黑", sans-serif;
+        }
+        .character {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+        }
+        .question {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 20px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .yes {
+            background-color: #ff4d4f;
+        }
+        .no {
+            background-color: #69b1ff;
+        }
+        .tip {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="tip" id="playStatus">🎶 正在自动播放《爱错》音乐💖</div>
+
+    <!-- 相对路径：直接写文件名 -->
+    < img src="heart.jpg" class="character" alt="心动告白">
+
+    <div class="question">我喜欢你很久了，可以成为我的恋人吗？</div>
+
+    <div class="button-group">
+        <button id="yesBtn" class="yes">我愿意❤️</button>
+        <button id="noBtn" class="no">不行</button>
+    </div>
+
+    <button id="playBtn" class="play-btn" style="background-color: #ff3333; color: white; margin: 20px auto; display: block;">🔊 重新播放《爱错》音乐</button>
+
+    <!-- 相对路径：直接写文件名 -->
+    <audio id="loveMusic" loop autoplay>
+        <source src="爱错.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放
+    </audio>
+
+    <script>
+        const playBtn = document.getElementById('playBtn');
+        const loveMusic = document.getElementById('loveMusic');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        let noClickCount = 0;
+
+        window.addEventListener('load', () => {
+            loveMusic.play().catch(err => {
+                document.getElementById('playStatus').textContent = '⚠️ 自动播放被拦截，点击下方按钮手动播放';
+            });
+        });
+
+        playBtn.addEventListener('click', () => {
+            loveMusic.play().then(() => {
+                document.getElementById('playStatus').textContent = '🎶 正在播放《爱错》音乐';
+            }).catch(err => {
+                alert('音乐加载失败！请确认文件已上传到仓库根目录');
+            });
+        });
+
+        yesBtn.addEventListener('click', () => {
+            alert('💖 太好了！我们以后就是恋人啦～');
+        });
+
+        noBtn.addEventListener('click', () => {
+            noClickCount++;
+            const scale = 1 - (noClickCount * 0.05);
+            noBtn.style.transform = `scale(${scale})`;
+
+            let alertMsg = '';
+            switch (noClickCount) {
+                case 1:
+                    alertMsg = '🥺 我会一直等你，再考虑考虑呀～';
+                    break;
+                case 2:
+                    alertMsg = '😢 别这样嘛，再给我一次机会好不好？';
+                    break;
+                case 3:
+                    alertMsg = '😣 我真的很喜欢你，再想想吧~';
+                    break;
+                case 4:
+                    alertMsg = '😞 好吧，如果你有一点点心动，就告诉我~';
+                    break;
+                case 5:
+                    noBtn.style.pointerEvents = 'none';
+                    noBtn.style.opacity = '0.5';
+                    alertMsg = '😔 好吧，如果你改变主意了，随时可以回来找我~';
+                    break;
+            }
+            alert(alertMsg);
+        });
+    </script>
+</body>
+</html>
